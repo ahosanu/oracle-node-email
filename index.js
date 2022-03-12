@@ -42,11 +42,11 @@ app.post('/json_mail_message', async (req, res) => {
                 if (dataBody.ips.local)
                     html += '<a href="' + dataBody.ips.local + '/' + dataBody.url + '" style="background: #403083;color: white;padding: 15px 25px;display: inline-block;text-decoration: none;font-weight: 600; text-align: center;">\n' +
                         '<p style="margin: 0;">CLICK HERE</p>\n' +
-                        '<p style="margin: 4px 0 0;font-size: 11px;color: #ffffffe0;text-transform: uppercase;">When  local</p>\n' +
+                        '<p style="margin: 4px 0 0;font-size: 11px;color: #ffffffe0;text-transform: uppercase;">Inside office</p>\n' +
                         '</a>';
                 if (dataBody.ips.real)
                     html += '<a href="' + dataBody.ips.real + '/' + dataBody.url + '" style="background: #308346;color: white;padding: 15px 25px;display: inline-block;text-decoration: none;font-weight: 600; text-align: center;">\n' + '<p style="margin: 0;">CLICK HERE</p>\n' +
-                        '<p style="margin: 4px 0 0;font-size: 11px;color: #ffffffe0;text-transform: uppercase;">When not local</p>\n' +
+                        '<p style="margin: 4px 0 0;font-size: 11px;color: #ffffffe0;text-transform: uppercase;">Outside office</p>\n' +
                         '</a><br/>';
             } else if (dataBody.url)
                 html += '<a href="' + dataBody.url + '" style="background: #403083;color: white;padding: 15px 25px;display: inline-block;text-decoration: none;font-weight: 600; text-align: center;">CLICK HERE</a>';
@@ -66,10 +66,18 @@ app.post('/json_mail_message', async (req, res) => {
 
             html += '</table>';
 
-            if (dataBody.url)
-                if (dataBody.url)
-                    html += "<a href='" + dataBody.url + "' " +
-                        "style=\"background: #403083;color: white;padding: 15px 25px;display: inline-block;text-decoration: none;font-weight: 600;\">CLICK HERE</a><br/>";
+            if (dataBody.url && dataBody.ips) {
+                if (dataBody.ips.local)
+                    html += '<a href="' + dataBody.ips.local + '/' + dataBody.url + '" style="background: #403083;color: white;padding: 15px 25px;display: inline-block;text-decoration: none;font-weight: 600; text-align: center;">\n' +
+                        '<p style="margin: 0;">CLICK HERE</p>\n' +
+                        '<p style="margin: 4px 0 0;font-size: 11px;color: #ffffffe0;text-transform: uppercase;">Inside office</p>\n' +
+                        '</a>';
+                if (dataBody.ips.real)
+                    html += '<a href="' + dataBody.ips.real + '/' + dataBody.url + '" style="background: #308346;color: white;padding: 15px 25px;display: inline-block;text-decoration: none;font-weight: 600; text-align: center;">\n' + '<p style="margin: 0;">CLICK HERE</p>\n' +
+                        '<p style="margin: 4px 0 0;font-size: 11px;color: #ffffffe0;text-transform: uppercase;">Outside office</p>\n' +
+                        '</a><br/>';
+            } else if (dataBody.url)
+                html += '<a href="' + dataBody.url + '" style="background: #403083;color: white;padding: 15px 25px;display: inline-block;text-decoration: none;font-weight: 600; text-align: center;">CLICK HERE</a>';
 
             console.log('Send Email With Body');
             await sendMail(dataBody.toMail, dataBody.subject, html);
