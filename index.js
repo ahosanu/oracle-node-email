@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const http = require('http');
 const oracledb = require('oracledb');
+var nodemailer = require('nodemailer');
 const server = http.createServer(app);
 const server_port = process.env.port || 3000;
 
@@ -414,9 +415,9 @@ app.get('/accessories_purchase_order_create_not_submit', async(req, res) => {
 
 var DBConnect = async () => {
     return await oracledb.getConnection({
-        user: process.env.dbuser,
-        password: process.env.dbpass,
-        connectString: process.env.dbhost
+        user: process.env.dbuser || "MSDERP",
+        password: process.env.dbpass || "AAA",
+        connectString: process.env.dbhost || "103.205.181.106/PDB"
     });
 }
 
