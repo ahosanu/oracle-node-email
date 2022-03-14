@@ -413,7 +413,7 @@ app.get('/accessories_purchase_order_create_not_submit', async(req, res) => {
 var DBConnect = async () => {
     return await oracledb.getConnection({
         user: process.env.dbuser || "MSDERP",
-        password: process.env.dbpass || "AAA",
+        password: process.env.dbpass || "Ah_15172500",
         connectString: process.env.dbhost || "103.205.181.106/PDB"
     });
 }
@@ -422,18 +422,20 @@ var DBConnect = async () => {
 var sendMail = async (to, subject, message) => {
 
     const transporter = nodemailer.createTransport({
-        host: process.env.emailHost || 'mail.besterp-bd.com',
-        port: process.env.emailPort || 465,
-        secure: true,
+
+       /* host: 'mail.besterp-bd.com',
+        port: 465,
+        secure: true,*/
+        service: "Outlook365",
         auth: {
-            user: process.env.emailUser|| 'erp@besterp-bd.com',
-            pass: process.env.emailPassword || 'Ah@#15172500'
+            user: 'msdaccounts@msdyeing.com',
+            pass: 'erp@#MSD'
         }
     });
 
 // send email
     await transporter.sendMail({
-        from: '"BST-ERP" <erp@besterp-bd.com>',
+        from: '"BST-ERP"<msdaccounts@msdyeing.com>',
         to: to,
         subject: subject,
         html: message
