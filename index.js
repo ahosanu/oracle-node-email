@@ -435,7 +435,7 @@ var sendMail = async (to, subject, message) => {
 
 // send email
     await transporter.sendMail({
-        from: '"BST-ERP"<msdaccounts@msdyeing.com>',
+        from: '"BST-ERP"<'+process.env.email+'>',
         to: to,
         subject: subject,
         html: message
